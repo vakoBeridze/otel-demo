@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: service-a
+
+server:
+  port: 8081
+  servlet:
+    context-path: /a
