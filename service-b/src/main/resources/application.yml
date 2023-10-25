@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: service-b
+
+server:
+  port: 8082
+  servlet:
+    context-path: /b
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics
+  otlp:
+    metrics:
+      export:
+        url: http://localhost:4318/v1/metrics # default
+        step: 10s # default 1m
+    tracing:
+      endpoint: http://localhost:4318/v1/traces # default
+  tracing:
+    sampling:
+      probability: 1.0 # default 0.1
+
