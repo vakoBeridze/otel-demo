@@ -25,7 +25,9 @@ dependencies {
 
 //	for traces
     runtimeOnly 'io.micrometer:micrometer-tracing-bridge-otel'//bridges the Micrometer Observation API to OpenTelemetry.
-    runtimeOnly 'io.opentelemetry:opentelemetry-exporter-otlp'//reports traces to a collector that can accept OTLP.
+    runtimeOnly 'io.opentelemetry:opentelemetry-exporter-otlp'//reports traces to a collector that can accept OTLP
+
+    implementation 'org.springframework.kafka:spring-kafka'
 }
 
 tasks.named('test') {
