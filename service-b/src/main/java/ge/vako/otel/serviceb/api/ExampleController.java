@@ -4,7 +4,6 @@ import ge.vako.otel.serviceb.kafka.TestProducer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
@@ -30,7 +29,7 @@ public class ExampleController {
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Really bad request");
     }
 
-    @PostMapping("/kafka")
+    @GetMapping("/kafka")
     void sendKafka() {
         testProducer.send("kafka message");
     }

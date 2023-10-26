@@ -1,17 +1,16 @@
 package ge.vako.otel.servicea.api;
 
-import ge.vako.otel.servicea.kafka.TestProducer;
+import ge.vako.otel.servicea.service.ExampleService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ExampleController {
 
-    private final TestProducer testProducer;
+    private final ExampleService exampleService;
 
-    public ExampleController(TestProducer testProducer) {
-        this.testProducer = testProducer;
+    public ExampleController(ExampleService exampleService) {
+        this.exampleService = exampleService;
     }
 
     @GetMapping("/hello")
@@ -19,8 +18,8 @@ public class ExampleController {
         return "Hello, from service-a";
     }
 
-    @PostMapping("/kafka")
+    @GetMapping("/kafka")
     void sendKafka() {
-        testProducer.send("kafka message");
+        exampleService.sendMessage();
     }
 }
