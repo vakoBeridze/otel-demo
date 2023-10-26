@@ -2,6 +2,20 @@ spring:
   application:
     name: service-a
 
+  kafka:
+    bootstrap-servers: localhost:9094
+    consumer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+#  sleuth:
+#    otel:
+#      config:
+#        trace-id-ratio-based: 1.0
+#      exporter:
+#        otlp:
+#          endpoint: http://localhost:4317
+
 server:
   port: 8081
   servlet:

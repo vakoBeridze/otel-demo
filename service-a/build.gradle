@@ -1,14 +1,24 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '2.7.17'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'org.springframework.boot' version '3.1.5'
+	id 'io.spring.dependency-management' version '1.1.3'
+//	id 'org.springframework.boot' version '2.7.17'
+//	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
+
+//dependencyManagement {
+//	imports {
+//		mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2021.0.5'
+//		mavenBom 'org.springframework.cloud:spring-cloud-sleuth-otel-dependencies:1.1.2'
+//	}
+//}
+
 
 group = 'ge.vako.otel'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '11'
+	sourceCompatibility = '17'
 }
 
 repositories {
@@ -25,8 +35,8 @@ dependencies {
 
 
 //	for traces
-//	implementation 'io.micrometer:micrometer-tracing-bridge-otel:1.1.6' - bridges the Micrometer Observation API to OpenTelemetry.
-//	implementation 'io.opentelemetry:opentelemetry-exporter-otlp:1.25.0' - reports traces to a collector that can accept OTLP.
+	implementation 'io.micrometer:micrometer-tracing-bridge-otel:1.1.6'
+	implementation 'io.opentelemetry:opentelemetry-exporter-otlp:1.25.0'
 
 //
 //
@@ -47,7 +57,7 @@ dependencies {
 */
 
 
-
+	implementation 'org.springframework.kafka:spring-kafka'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

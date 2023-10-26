@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OtlpMetricsExportConfiguration {
 
-    @Bean
-    public OtlpMeterRegistry otlpMeterRegistry() {
-        return new OtlpMeterRegistry();
-    }
+//    @Bean
+//    public OtlpMeterRegistry otlpMeterRegistry() {
+//        return new OtlpMeterRegistry();
+//    }
 }
