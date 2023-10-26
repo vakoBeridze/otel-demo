@@ -1,4 +1,4 @@
-package ge.vako.otel.servicea.kafka;
+package ge.vako.otel.serviceb.kafka;
 
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestConsumer {
 
-    @KafkaListener(topics = "test-topic-from-b", groupId = "test")
+    @KafkaListener(topics = "test-topic-from-a", groupId = "service-a")
     public void consume(String message) {
         System.out.println("Message consumed: " + message);
     }

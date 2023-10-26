@@ -8,13 +8,17 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
-#  sleuth:
-#    otel:
-#      config:
-#        trace-id-ratio-based: 1.0
-#      exporter:
-#        otlp:
-#          endpoint: http://localhost:4317
+  sleuth:
+    otel:
+      config:
+        trace-id-ratio-based: 1.0
+      exporter:
+        otlp:
+          endpoint: http://localhost:4317
+#    trace-id128: true
+    propagation:
+      type: w3c
+#    supports-join: false
 
 server:
   port: 8081

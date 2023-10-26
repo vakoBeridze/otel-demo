@@ -1,4 +1,4 @@
-package ge.vako.otel.serviceb.kafka;
+package ge.vako.otel.servicea.kafka;
 
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -13,6 +13,6 @@ public class TestProducer {
 
     public void send(String message) {
         System.out.println("Sent message: " + message);
-        kafkaTemplate.send("test-topic-from-b", message);
+        kafkaTemplate.send("test-topic-from-a", message);
     }
 }

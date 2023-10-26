@@ -1,4 +1,4 @@
-package ge.vako.otel.servicea.kafka;
+package ge.vako.otel.serviceb.kafka;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
