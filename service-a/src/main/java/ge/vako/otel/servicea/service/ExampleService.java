@@ -13,6 +13,6 @@ public class ExampleService {
     }
 
     public void sendMessage() {
-        testProducer.send("kafka message");
+        testProducer.send("1");
     }
 }

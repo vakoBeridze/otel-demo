@@ -28,3 +28,6 @@ management:
     sampling:
       probability: 1.0 # default 0.1
 
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

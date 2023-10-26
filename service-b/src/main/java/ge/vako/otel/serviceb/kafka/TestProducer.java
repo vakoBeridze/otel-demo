@@ -15,7 +15,7 @@ public class TestProducer {
     }
 
     public void send(String message) {
-        LOGGER.info("Sent message from service-b: " + message);
+        LOGGER.info("Sending message from service-b: " + message);
         kafkaTemplate.send("test-topic-from-b", message);
     }
 }

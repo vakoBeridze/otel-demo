@@ -31,6 +31,6 @@ public class ExampleController {
 
     @GetMapping("/kafka")
     void sendKafka() {
-        testProducer.send("kafka message");
+        testProducer.send("1");
     }
 }
