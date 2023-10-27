@@ -12,14 +12,7 @@ management:
     web:
       exposure:
         include: health,metrics
-  otlp:
-    metrics:
-      export:
-        url: http://localhost:4318/v1/metrics # default
-        step: 10s # default 1m
-    tracing:
-      endpoint: http://localhost:4318/v1/traces # default
-  tracing:
-    sampling:
-      probability: 1.0 # default 0.1
 
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

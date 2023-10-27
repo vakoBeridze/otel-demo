@@ -19,13 +19,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-//	for metrics
-    runtimeOnly 'io.micrometer:micrometer-registry-otlp'
-
-//	for traces
-    runtimeOnly 'io.micrometer:micrometer-tracing-bridge-otel'//bridges the Micrometer Observation API to OpenTelemetry.
-    runtimeOnly 'io.opentelemetry:opentelemetry-exporter-otlp'//reports traces to a collector that can accept OTLP.
 }
 
 tasks.named('test') {

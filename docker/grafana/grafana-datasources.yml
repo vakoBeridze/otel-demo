@@ -11,8 +11,8 @@ datasources:
     isDefault: false
     version: 1
     editable: false
-    jsonData:
-      httpMethod: GET
+  #    jsonData:
+  #      httpMethod: GET
   #  - name: Loki
   #    type: loki
   #    uid: loki
@@ -34,10 +34,10 @@ datasources:
     editable: false
     apiVersion: 1
     uid: tempo
-    jsonData:
-      httpMethod: GET
-      serviceMap:
-        datasourceUid: prometheus
+#    jsonData:
+#      httpMethod: GET
+#      serviceMap:
+#        datasourceUid: prometheus
 #      tracesToLogsV2:
 #        datasourceUid: loki
 #        spanStartTimeShift: '-1h'

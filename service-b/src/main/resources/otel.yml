@@ -1,0 +1,7 @@
+otel:
+  traces:
+    exporter: logging
+  metrics:
+    exporter: logging
+  logs:
+    exporter: logging

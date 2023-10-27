@@ -2,7 +2,6 @@ receivers:
   otlp:
     protocols:
       grpc:
-      http:
 
 processors:
   # batch metrics before sending to reduce API usage
@@ -10,7 +9,7 @@ processors:
 
 exporters:
   logging:
-    loglevel: debug
+    loglevel: info
 
   otlp:
     endpoint: tempo:4317
