@@ -18,36 +18,22 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-
+	implementation 'org.projectlombok:lombok'
 
 //	for metrics
 	implementation 'io.micrometer:micrometer-registry-otlp'
 
-
-//	for traces
-//	implementation 'io.micrometer:micrometer-tracing-bridge-otel:1.1.6' - bridges the Micrometer Observation API to OpenTelemetry.
-//	implementation 'io.opentelemetry:opentelemetry-exporter-otlp:1.25.0' - reports traces to a collector that can accept OTLP.
-
-//
-//
-//	implementation('org.springframework.cloud:spring-cloud-starter-sleuth') {
-//		//  We want to exclude the default tracer coming from Sleuth...
+// for tracing
+//	implementation "org.springframework.cloud:spring-cloud-sleuth-otel-autoconfigure:1.1.4"
+//	implementation "io.opentelemetry:opentelemetry-exporter-otlp:1.23.1"
+//	implementation("org.springframework.cloud:spring-cloud-starter-sleuth:3.1.9") {
 //		exclude group: 'org.springframework.cloud', module: 'spring-cloud-sleuth-brave'
 //	}
-//	implementation 'org.springframework.cloud:spring-cloud-sleuth-otel-autoconfigure:1.1.0'
-//	implementation 'io.opentelemetry:opentelemetry-exporter-otlp:1.25.0'
 
-/*
-	implementation('org.springframework.cloud:spring-cloud-starter-sleuth') {
-		exclude group: 'org.springframework.cloud', module: 'spring-cloud-sleuth-brave'
-		//  We want to exclude the default tracer coming from Sleuth...
-	}
-	implementation 'org.springframework.cloud:spring-cloud-sleuth-otel-autoconfigure'
-	// ... and we want to include the one coming from Spring Cloud Sleuth OTel
-*/
+	implementation('io.opentelemetry.instrumentation:opentelemetry-instrumentation-annotations:1.31.0')
 
-
-
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'com.h2database:h2'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
