@@ -1,4 +1,4 @@
-FROM gradle:7-jdk11-alpine AS build
+FROM gradle:7-jdk11 AS build
 WORKDIR /service-a
 COPY ./service-a/src src
 COPY ./service-a/build.gradle .

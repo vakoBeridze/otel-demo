@@ -19,7 +19,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'io.opentelemetry.instrumentation:opentelemetry-resources:1.31.0-alpha'
 }
 
 tasks.named('test') {
