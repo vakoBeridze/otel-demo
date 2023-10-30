@@ -1,6 +1,12 @@
 version: '3'
 services:
 
+  service-a:
+    build:
+      context: ./
+      dockerfile: ./service-a/Dockerfile
+    ports:
+      - "8081:8081"
   otel-collector:
     container_name: otel-collector
     image: otel/opentelemetry-collector-contrib:0.88.0
@@ -8,6 +14,7 @@ services:
       - --config=/etc/otelcol-contrib/otel-collector.yml
     volumes:
       - ./docker/collector/otel-collector.yml:/etc/otelcol-contrib/otel-collector.yml
+#      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "1888:1888" # pprof extension
       - "8888:8888" # Prometheus metrics exposed by the collector
