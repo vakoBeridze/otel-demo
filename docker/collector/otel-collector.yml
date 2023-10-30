@@ -1,11 +1,22 @@
 receivers:
   otlp:
     protocols:
+      http:
       grpc:
+
 
 processors:
   # batch metrics before sending to reduce API usage
   batch:
+
+  # Define the attributes processor to modify the help text for specific metrics
+#  attributes/delete_help:
+#    actions:
+#      # Modify the help text for http_server_requests_seconds and http_server_requests_seconds_max metrics
+#      - key: http_server_requests_seconds
+#        action: delete
+#      - key: http_server_requests_max_seconds
+#        action: delete
 
 exporters:
   logging:
@@ -17,7 +28,7 @@ exporters:
       insecure: true
 
   prometheus:
-    endpoint: "0.0.0.0:8889"
+    endpoint: ":8889"
     const_labels:
       label1: value1
 
@@ -29,15 +40,19 @@ extensions:
   pprof:
   # serves as an http endpoint that provides live debugging data about instrumented components.
   zpages:
+    endpoint: 0.0.0.0:55679
 
 
 service:
   extensions: [ health_check, pprof, zpages ]
+  telemetry:
+    logs:
+      level: "debug"
   pipelines:
     traces:
       receivers: [ otlp ]
       processors: [ batch ]
-      exporters: [ logging,otlp ]
+      exporters: [ otlp ]
     metrics:
       receivers: [ otlp ]
       processors: [ batch ]
