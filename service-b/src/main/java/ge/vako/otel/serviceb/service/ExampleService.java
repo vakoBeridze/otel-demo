@@ -11,6 +11,6 @@ public class ExampleService {
 
     public String getGreetingText() {
         LOGGER.info("Getting greeting test from service-b");
-        return "Hello, from service-a";
+        return "Hello, from service-b";
     }
 }

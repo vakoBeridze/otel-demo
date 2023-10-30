@@ -2,15 +2,65 @@ version: '3.7'
 
 services:
 
-  service-a:
-    container_name: service-a
+  service-a1:
+    container_name: service-a1
     build:
       context: .
       dockerfile: ./service-a/Dockerfile
     ports:
       - "8081:8081"
-    depends_on:
-      - otel-collector
+    command:
+      - "java"
+      - "-javaagent:/agent/opentelemetry-javaagent.jar"
+      - "-Dotel.javaagent.configuration-file=/agent/otel.properties"
+      - "-Dotel.service.name=service-a1"
+      - "-jar"
+      - "/app.jar"
+
+  service-a2:
+    container_name: service-a2
+    build:
+      context: .
+      dockerfile: ./service-a/Dockerfile
+    ports:
+      - "8083:8081"
+    command:
+      - "java"
+      - "-javaagent:/agent/opentelemetry-javaagent.jar"
+      - "-Dotel.javaagent.configuration-file=/agent/otel.properties"
+      - "-Dotel.service.name=service-a2"
+      - "-jar"
+      - "/app.jar"
+
+  service-b1:
+    container_name: service-b1
+    build:
+      context: .
+      dockerfile: ./service-b/Dockerfile
+    ports:
+      - "8082:8082"
+    command:
+      - "java"
+      - "-javaagent:/agent/opentelemetry-javaagent.jar"
+      - "-Dotel.javaagent.configuration-file=/agent/otel.properties"
+      - "-Dotel.service.name=service-b1"
+      - "-jar"
+      - "/app.jar"
+
+  service-b2:
+    container_name: service-b2
+    build:
+      context: .
+      dockerfile: ./service-b/Dockerfile
+    ports:
+      - "8084:8082"
+    command:
+      - "java"
+      - "-javaagent:/agent/opentelemetry-javaagent.jar"
+      - "-Dotel.javaagent.configuration-file=/agent/otel.properties"
+      - "-Dotel.service.name=service-b2"
+      - "-jar"
+      - "/app.jar"
 
   otel-collector:
     container_name: otel-collector
@@ -26,7 +76,7 @@ services:
       - "8889:8889" # Prometheus exporter metrics
       - "13133:13133" # health_check extension
       - "4317:4317" # OTLP gRPC receiver
-#      - "4318:4318" # OTLP http receiver
+      #      - "4318:4318" # OTLP http receiver
       - "55679:55679" # zpages extension
 
   prometheus:

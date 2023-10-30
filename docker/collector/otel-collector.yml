@@ -10,13 +10,27 @@ processors:
   batch:
 
   # Define the attributes processor to modify the help text for specific metrics
-#  attributes/delete_help:
-#    actions:
-#      # Modify the help text for http_server_requests_seconds and http_server_requests_seconds_max metrics
-#      - key: http_server_requests_seconds
-#        action: delete
-#      - key: http_server_requests_max_seconds
-#        action: delete
+  #  attributes/delete_help:
+  #    actions:
+  #      # Modify the help text for http_server_requests_seconds and http_server_requests_seconds_max metrics
+  #      - key: http_server_requests_seconds
+  #        action: delete
+  #      - key: http_server_requests_max_seconds
+  #        action: delete
+
+  transform:
+    metric_statements:
+      - context: resource
+        statements:
+          - set(attributes["help"], "Zzz") where attributes["fqName"] == "http_server_requests_seconds"
+      - context: resource
+        statements:
+          - set(attributes["help"], "Yyy") where attributes["fqName"] == "http_server_requests_max_seconds"
+#      - context: datapoint
+#        statements:
+#          - set(attributes["namespace"], resource.attributes["k8s.namespace.name"])
+#          - set(attributes["container"], resource.attributes["k8s.container.name"])
+#          - set(attributes["pod"], resource.attributes["k8s.pod.name"])
 
 exporters:
   logging:
@@ -30,7 +44,7 @@ exporters:
   prometheus:
     endpoint: ":8889"
     const_labels:
-      label1: value1
+      source: otel-collector
 
 # https://github.com/open-telemetry/opentelemetry-collector/blob/main/extension/README.md
 extensions:
@@ -55,5 +69,5 @@ service:
       exporters: [ otlp ]
     metrics:
       receivers: [ otlp ]
-      processors: [ batch ]
+      processors: [ transform,batch ]
       exporters: [ logging,prometheus ]

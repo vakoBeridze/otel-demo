@@ -21,7 +21,7 @@ public class ExampleController {
     @GetMapping("/hello")
     String hello() {
         String greetingText = exampleService.getGreetingText();
-        ResponseEntity<String> stringResponseEntity = restTemplate.getForEntity("http://localhost:8081/a/hello", String.class);
+        ResponseEntity<String> stringResponseEntity = restTemplate.getForEntity("http://service-a1:8081/a/hello", String.class);
         return greetingText + " " + stringResponseEntity.getBody();
     }
 
