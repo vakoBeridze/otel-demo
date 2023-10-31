@@ -20,12 +20,12 @@ processors:
 
   transform:
     metric_statements:
-      - context: resource
+      - context: metric
         statements:
-          - set(attributes["help"], "Zzz") where attributes["fqName"] == "http_server_requests_seconds"
-      - context: resource
+          - set(description, "Zzz") where name == "http.server.requests.max"
+      - context: metric
         statements:
-          - set(attributes["help"], "Yyy") where attributes["fqName"] == "http_server_requests_max_seconds"
+          - set(description, "Yyy") where name == "http.server.requests"
 #      - context: datapoint
 #        statements:
 #          - set(attributes["namespace"], resource.attributes["k8s.namespace.name"])
@@ -34,7 +34,7 @@ processors:
 
 exporters:
   logging:
-    loglevel: info
+    loglevel: debug
 
   otlp:
     endpoint: tempo:4317
