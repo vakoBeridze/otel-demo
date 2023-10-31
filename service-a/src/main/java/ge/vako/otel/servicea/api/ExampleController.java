@@ -1,5 +1,6 @@
 package ge.vako.otel.servicea.api;
 
+import ge.vako.otel.servicea.model.User;
 import ge.vako.otel.servicea.service.ExampleService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
+import java.util.Random;
 
 @RestController
 public class ExampleController {
@@ -28,9 +32,12 @@ public class ExampleController {
     }
 
     @GetMapping("/data")
-    String error() {
-        ResponseEntity<String> responseEntity = this.restTemplate.postForEntity("https://httpbin.org/post", "Hello, World!", String.class);
-        return responseEntity.getBody();
+    List<User> data() throws InterruptedException {
+        boolean sleep = new Random().nextBoolean();
+        if (sleep) {
+            Thread.sleep(1000);
+        }
+        return this.exampleService.getUsers();
     }
 
     @GetMapping("/data/{statusCode}")

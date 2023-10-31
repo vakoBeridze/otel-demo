@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Random;
+
 @RestController
 public class ExampleController {
 
@@ -31,7 +33,11 @@ public class ExampleController {
     }
 
     @GetMapping("/data")
-    String error() {
+    String data() throws InterruptedException {
+        boolean sleep = new Random().nextBoolean();
+        if (sleep) {
+            Thread.sleep(1000);
+        }
         ResponseEntity<String> stringResponseEntity = restTemplate.getForEntity(serviceAUrl + "/a/data", String.class);
         return stringResponseEntity.getBody();
     }
