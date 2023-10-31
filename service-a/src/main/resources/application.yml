@@ -8,6 +8,9 @@ server:
     context-path: /a
 
 management:
+  metrics:
+    tags:
+      application: ${spring.application.name}1
   endpoints:
     web:
       exposure:
