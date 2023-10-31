@@ -10,7 +10,7 @@ public class ExampleService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExampleService.class);
 
     public String getGreetingText() {
-        LOGGER.info("Getting greeting test from service-b");
+        LOGGER.info("Getting greeting from service-b");
         return "Hello, from service-b";
     }
 }

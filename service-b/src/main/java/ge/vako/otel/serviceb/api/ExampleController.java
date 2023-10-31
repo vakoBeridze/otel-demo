@@ -1,15 +1,19 @@
 package ge.vako.otel.serviceb.api;
 
 import ge.vako.otel.serviceb.service.ExampleService;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 public class ExampleController {
+
+    @Value("${service-a-url}")
+    String serviceAUrl;
+
     private final RestTemplate restTemplate;
     private final ExampleService exampleService;
 
@@ -21,12 +25,20 @@ public class ExampleController {
     @GetMapping("/hello")
     String hello() {
         String greetingText = exampleService.getGreetingText();
-        ResponseEntity<String> stringResponseEntity = restTemplate.getForEntity("http://service-a1:8081/a/hello", String.class);
+        System.err.println("serviceAUrl: " + serviceAUrl);
+        ResponseEntity<String> stringResponseEntity = restTemplate.getForEntity(serviceAUrl + "/a/hello", String.class);
         return greetingText + " " + stringResponseEntity.getBody();
     }
 
-    @GetMapping("/error")
+    @GetMapping("/data")
     String error() {
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Really bad request");
+        ResponseEntity<String> stringResponseEntity = restTemplate.getForEntity(serviceAUrl + "/a/data", String.class);
+        return stringResponseEntity.getBody();
+    }
+
+    @GetMapping("/data/{statusCode}")
+    String status(@PathVariable String statusCode) {
+        ResponseEntity<String> responseEntity = this.restTemplate.getForEntity(serviceAUrl + "/a/data/" + statusCode, String.class);
+        return responseEntity.getBody();
     }
 }

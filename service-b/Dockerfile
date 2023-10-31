@@ -11,4 +11,4 @@
 FROM openjdk:17-jdk
 COPY ./service-b/build/libs/service-b-0.0.1-SNAPSHOT.jar /app.jar
 COPY agent /agent
-ENTRYPOINT ["java", "-javaagent:/agent/opentelemetry-javaagent.jar", "-Dotel.javaagent.configuration-file=/agent/otel.properties", "-Dotel.service.name=service-b", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-javaagent:/agent/opentelemetry-javaagent.jar", "-Dotel.javaagent.configuration-file=/agent/otel.properties", "-jar", "/app.jar"]

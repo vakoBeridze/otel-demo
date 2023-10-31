@@ -10,7 +10,7 @@ server:
 management:
   metrics:
     tags:
-      application: ${spring.application.name}1
+      application: ${spring.application.name}
   endpoints:
     web:
       exposure:
@@ -19,3 +19,5 @@ management:
 logging:
   pattern:
     level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+
+service-b-url: http://localhost:8081

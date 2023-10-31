@@ -70,4 +70,4 @@ service:
     metrics:
       receivers: [ otlp ]
       processors: [ transform,batch ]
-      exporters: [ logging,prometheus ]
+      exporters: [ prometheus ]

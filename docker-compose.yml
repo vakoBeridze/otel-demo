@@ -9,13 +9,9 @@ services:
       dockerfile: ./service-a/Dockerfile
     ports:
       - "8081:8081"
-    command:
-      - "java"
-      - "-javaagent:/agent/opentelemetry-javaagent.jar"
-      - "-Dotel.javaagent.configuration-file=/agent/otel.properties"
-      - "-Dotel.service.name=service-a1"
-      - "-jar"
-      - "/app.jar"
+    environment:
+      SPRING_APPLICATION_NAME: service-a1
+      SERVICE_B_URL: http://service-b1:8082
 
   service-a2:
     container_name: service-a2
@@ -24,13 +20,9 @@ services:
       dockerfile: ./service-a/Dockerfile
     ports:
       - "8083:8081"
-    command:
-      - "java"
-      - "-javaagent:/agent/opentelemetry-javaagent.jar"
-      - "-Dotel.javaagent.configuration-file=/agent/otel.properties"
-      - "-Dotel.service.name=service-a2"
-      - "-jar"
-      - "/app.jar"
+    environment:
+      SPRING_APPLICATION_NAME: service-a2
+      SERVICE_B_URL: http://service-b2:8082
 
   service-b1:
     container_name: service-b1
@@ -39,13 +31,9 @@ services:
       dockerfile: ./service-b/Dockerfile
     ports:
       - "8082:8082"
-    command:
-      - "java"
-      - "-javaagent:/agent/opentelemetry-javaagent.jar"
-      - "-Dotel.javaagent.configuration-file=/agent/otel.properties"
-      - "-Dotel.service.name=service-b1"
-      - "-jar"
-      - "/app.jar"
+    environment:
+      SPRING_APPLICATION_NAME: service-b1
+      SERVICE_A_URL: http://service-a1:8081
 
   service-b2:
     container_name: service-b2
@@ -54,13 +42,9 @@ services:
       dockerfile: ./service-b/Dockerfile
     ports:
       - "8084:8082"
-    command:
-      - "java"
-      - "-javaagent:/agent/opentelemetry-javaagent.jar"
-      - "-Dotel.javaagent.configuration-file=/agent/otel.properties"
-      - "-Dotel.service.name=service-b2"
-      - "-jar"
-      - "/app.jar"
+    environment:
+      SPRING_APPLICATION_NAME: service-b2
+      SERVICE_A_URL: http://service-a2:8081
 
   otel-collector:
     container_name: otel-collector

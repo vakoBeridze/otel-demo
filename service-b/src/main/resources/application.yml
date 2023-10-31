@@ -8,11 +8,16 @@ server:
     context-path: /b
 
 management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
   endpoints:
     web:
       exposure:
-        include: health,metrics,prometheus
+        include: health,metrics
 
 logging:
   pattern:
     level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+
+service-a-url: http://localhost:8082
