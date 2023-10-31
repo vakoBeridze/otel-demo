@@ -2,6 +2,13 @@ spring:
   application:
     name: service-b
 
+  kafka:
+    bootstrap-servers: kafka-broker:9092
+    consumer:
+      auto-offset-reset: earliest
+      group-id: service-b
+
+
 server:
   port: 8082
   servlet:

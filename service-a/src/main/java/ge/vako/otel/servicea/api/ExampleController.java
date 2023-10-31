@@ -45,4 +45,9 @@ public class ExampleController {
         ResponseEntity<String> responseEntity = this.restTemplate.getForEntity("https://httpbin.org/status/" + statusCode, String.class);
         return responseEntity.getBody();
     }
+
+    @GetMapping("/kafka")
+    void sendKafka() {
+        exampleService.sendMessage();
+    }
 }

@@ -1,5 +1,6 @@
 package ge.vako.otel.serviceb.api;
 
+import ge.vako.otel.serviceb.kafka.TestProducer;
 import ge.vako.otel.serviceb.service.ExampleService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +19,12 @@ public class ExampleController {
 
     private final RestTemplate restTemplate;
     private final ExampleService exampleService;
+    private final TestProducer testProducer;
 
-    public ExampleController(RestTemplate restTemplate, ExampleService exampleService) {
+    public ExampleController(RestTemplate restTemplate, ExampleService exampleService, TestProducer testProducer) {
         this.restTemplate = restTemplate;
         this.exampleService = exampleService;
+        this.testProducer = testProducer;
     }
 
     @GetMapping("/hello")
@@ -46,5 +49,10 @@ public class ExampleController {
     String status(@PathVariable String statusCode) {
         ResponseEntity<String> responseEntity = this.restTemplate.getForEntity(serviceAUrl + "/a/data/" + statusCode, String.class);
         return responseEntity.getBody();
+    }
+
+    @GetMapping("/kafka")
+    void sendKafka() {
+        testProducer.send("1");
     }
 }
