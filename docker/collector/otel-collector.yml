@@ -1,31 +1,26 @@
 receivers:
   otlp:
     protocols:
-      http:
       grpc:
-
 
 processors:
   # batch metrics before sending to reduce API usage
   batch:
 
-  # Define the attributes processor to modify the help text for specific metrics
-  #  attributes/delete_help:
-  #    actions:
-  #      # Modify the help text for http_server_requests_seconds and http_server_requests_seconds_max metrics
-  #      - key: http_server_requests_seconds
-  #        action: delete
-  #      - key: http_server_requests_max_seconds
-  #        action: delete
-
   transform:
     metric_statements:
-      - context: metric
+      - context: datapoint
         statements:
-          - set(description, "Zzz") where name == "http.server.requests.max"
-      - context: metric
-        statements:
-          - set(description, "Yyy") where name == "http.server.requests"
+          - set(metric.description, "service-a1") where attributes["application"] == "service-a1"
+          - set(metric.description, "service-a2") where attributes["application"] == "service-a2"
+          - set(metric.description, "service-b1") where attributes["application"] == "service-b1"
+          - set(metric.description, "service-b2") where attributes["application"] == "service-b2"
+#      - context: metric
+#        statements:
+#          - set(description, "Zzz") where name == "http.server.requests.max"
+#      - context: metric
+#        statements:
+#          - set(description, "Yyy") where name == "http.server.requests"
 #      - context: datapoint
 #        statements:
 #          - set(attributes["namespace"], resource.attributes["k8s.namespace.name"])
@@ -61,7 +56,7 @@ service:
   extensions: [ health_check, pprof, zpages ]
   telemetry:
     logs:
-      level: "debug"
+      level: "info"
   pipelines:
     traces:
       receivers: [ otlp ]
@@ -70,4 +65,4 @@ service:
     metrics:
       receivers: [ otlp ]
       processors: [ transform,batch ]
-      exporters: [ prometheus ]
+      exporters: [ logging,prometheus ]
