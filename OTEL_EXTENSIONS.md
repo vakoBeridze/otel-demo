@@ -9,7 +9,7 @@
 
 ### Healthcheck 
 - [GitHub Repository](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/extension/healthcheckextension)
-- enables http endpoint for checking collector status - can be used as liveness/readiness probe.
+- enables http endpoint http://localhost:13133/ for checking collector status - can be used as liveness/readiness probe.
 
 ### ZPages 
 - [GitHub Repository](https://github.com/open-telemetry/opentelemetry-collector/blob/main/extension/zpagesextension/README.md)
