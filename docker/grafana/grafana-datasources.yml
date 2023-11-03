@@ -36,8 +36,8 @@ datasources:
     uid: tempo
     jsonData:
       httpMethod: GET
-#      serviceMap:
-#        datasourceUid: prometheus
+      serviceMap:
+        datasourceUid: prometheus
       tracesToLogsV2:
         datasourceUid: loki
         spanStartTimeShift: '-1h'

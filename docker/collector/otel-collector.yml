@@ -7,6 +7,14 @@ processors:
   # batch metrics before sending to reduce API usage
   batch:
 
+  servicegraph:
+    metrics_exporter: prometheus # Exporter to send metrics to
+    store: # Configuration for the in-memory store
+      ttl: 2s # Value to wait for an edge to be completed
+      max_items: 200 # Amount of edges that will be stored in the storeMap
+    cache_loop: 2m # the time to cleans the cache periodically
+    store_expiration_loop: 10s # the time to expire old entries from the store periodically.
+
   #  attributes:
   #    actions:
   #      - from_context: application
@@ -73,7 +81,7 @@ service:
   pipelines:
     traces:
       receivers: [ otlp ]
-      processors: [ batch ]
+      processors: [ batch, servicegraph ]
       exporters: [ otlp ]
     metrics:
       receivers: [ otlp ]
