@@ -40,6 +40,9 @@ exporters:
   logging:
     loglevel: info
 
+  loki:
+    endpoint: "http://loki:3100/loki/api/v1/push"
+
   otlp:
     endpoint: tempo:4317
     tls:
@@ -76,3 +79,6 @@ service:
       receivers: [ otlp ]
       processors: [ transform,batch ]
       exporters: [ logging,prometheus ]
+    logs:
+      receivers: [ otlp ]
+      exporters: [ loki ]
