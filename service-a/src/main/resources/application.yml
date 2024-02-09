@@ -25,7 +25,7 @@ server:
 management:
   metrics:
     tags:
-      application: ${spring.application.name}
+      application: "xo"
   endpoints:
     web:
       exposure:

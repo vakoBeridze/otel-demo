@@ -3,38 +3,32 @@ receivers:
     protocols:
       grpc:
 
+connectors:
+  servicegraph:
+
 processors:
   # batch metrics before sending to reduce API usage
+  resource:
+    attributes:
+    - action: insert
+      key: loki.format
+      value: logfmt
+    - action: insert
+      key: loki.resource.labels
+      value: service.name, container.id
   batch:
-
-  servicegraph:
-    metrics_exporter: prometheus # Exporter to send metrics to
-    store: # Configuration for the in-memory store
-      ttl: 2s # Value to wait for an edge to be completed
-      max_items: 200 # Amount of edges that will be stored in the storeMap
-    cache_loop: 2m # the time to cleans the cache periodically
-    store_expiration_loop: 10s # the time to expire old entries from the store periodically.
-
-  #  attributes:
-  #    actions:
-  #      - from_context: application
-  #        action: upsert
-  #        key: zapp
-  #      - from_attribute: application
-  #        action: upsert
-  #        key: zapp
-  #      - from_attribute: job
-  #        action: upsert
-  #        key: wkapp
 
   transform:
     metric_statements:
       - context: datapoint
         statements:
           - set(metric.description, "")
-#      - context: metric
-#        statements:
-#          - set(description, "Zzz") where name == "http.server.requests.max"
+      - context: datapoint
+        statements:
+          - set(attributes["instance"], resource.attributes["container.id"])
+          - set(attributes["application"], resource.attributes["service.name"])
+#          - set(attributes["application"], attributes["main_application_class"])
+
 #      - context: metric
 #        statements:
 #          - set(description, "Yyy") where name == "http.server.requests"
@@ -46,7 +40,7 @@ processors:
 
 exporters:
   logging:
-    loglevel: info
+    loglevel: debug
 
   loki:
     endpoint: "http://loki:3100/loki/api/v1/push"
@@ -77,16 +71,17 @@ service:
   extensions: [ health_check, pprof, zpages ]
   telemetry:
     logs:
-      level: "info"
+      level: "debug"
   pipelines:
     traces:
       receivers: [ otlp ]
-      processors: [ batch, servicegraph ]
-      exporters: [ otlp ]
+      processors: [ batch ]
+      exporters: [ otlp, servicegraph ]
     metrics:
-      receivers: [ otlp ]
+      receivers: [ otlp, servicegraph ]
       processors: [ transform,batch ]
       exporters: [ logging,prometheus ]
     logs:
       receivers: [ otlp ]
+      processors: [ resource ]
       exporters: [ loki ]

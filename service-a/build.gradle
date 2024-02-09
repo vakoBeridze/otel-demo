@@ -1,6 +1,7 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '2.7.17'
+	id 'org.springframework.boot' version '2.7.12'
+//	id 'org.springframework.boot' version '2.2.8.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
@@ -16,8 +17,17 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation "org.springframework.cloud:spring-cloud-starter-sleuth:3.1.4"
+//	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+
+	implementation('org.springframework.boot:spring-boot-starter-actuator')
+//			{
+//		exclude group: 'io.micrometer', module: 'micrometer-core'
+//	}
+
+//	implementation 'io.micrometer:micrometer-core:1.5.1'
+//    implementation "org.springframework.cloud:spring-cloud-starter-sleuth:3.1.4"
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	runtimeOnly 'com.h2database:h2'
